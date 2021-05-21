@@ -1,0 +1,192 @@
+/*
+* CSS for www.pokusomyl.cz
+* Google, hledej!
+* Veronika Kreidlová 3. 12. 2020
+*/
+
+html {
+  background-color: #353535;
+}
+
+
+/* 
+* CSS for the body
+*/
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.site-content {
+  flex: 1;
+}
+
+
+/* 
+* CSS for pictures 
+*/
+
+#image-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 0.8fr 1.2fr;
+  margin-bottom: 20px;
+}
+
+#bubble-container {
+  text-align: left;
+}
+
+#dog-container {
+  margin-top: 20vh;
+  text-align: left;
+}
+
+
+/* 
+* CSS for a search section
+*/
+
+#userInput {
+  background-color: #f2f2f2;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 2.5;
+  padding: 0 20px;
+}
+
+#userInput:focus {
+  background-color: #eec0c0;
+}
+
+#userInput:hover {
+  background-color: #eec0c0;
+}
+
+#userInput:active {
+  background-color: #eec0c0;
+}
+
+
+/* 
+* CSS for buttons
+*/
+
+button {
+  margin-top: 40px;
+  border: 1px solid #353535;
+  border-radius: 10px;
+  background: #353535;
+  box-shadow: none;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+
+#searchButton {
+margin-left: 20px;
+}
+
+button:hover {
+  background-color: #555252;
+  color: #f2f2f2;
+}
+
+button:focus {
+  background-color: #555252;
+  color: #f2f2f2;
+}
+
+
+/* 
+* CSS for search results
+*/
+
+#results-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+#results {
+  text-align: left;
+  font-size: 1em;
+  max-width: 85vw;
+}
+
+
+/* 
+* CSS for #results links 
+*/
+
+#results a {
+  padding: 2px 1px 0;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+#results a:link {
+  color: #254ad0;
+}
+
+#results a:focus {
+  text-decoration: underline;
+  color: #0834cf;
+}
+
+#results a:hover {
+  text-decoration: underline;
+  color: #0834cf;
+}
+
+#results a:visited {
+  color: #344687;
+}
+
+
+/* 
+* CSS for the footer
+*/
+
+footer {
+  background-color: #353535;
+  color: #fcdee5;
+}
+
+
+/* 
+* CSS for footer links 
+*/
+
+footer a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}
+
+footer a:link {
+  color: #ff5d80;
+}
+
+footer a:visited {
+  color: #bf8e98;
+}
+
+footer a:focus {
+  text-decoration: underline;
+  color: #fd2c59;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #fd2c59;
+}

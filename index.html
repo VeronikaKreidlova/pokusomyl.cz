@@ -1,0 +1,124 @@
+<!--www.pokusomyl.cz Google, hledej! Veronika Kreidlová 3. 12. 2020-->
+<!DOCTYPE html>
+<html lang="cs-cz">
+
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Google, hledej!</title>
+  </head>
+
+
+  <body class="site">
+
+    <main class="site-content"> 
+
+      <!--Pictures-->
+      <div id="image-container">
+        <!--Speach bubble-->
+        <div id="bubble-container">
+          <h1><img id="bubble" src="/img/bubble-text-small.png" alt="Google, hledej!"></h1> 
+        </div>
+        <!--Dog-->
+        <div id="dog-container">
+          <img id="dog" src="/img/dog-small.png" alt="Stopující pes jménem Google">
+        </div>
+      </div> 
+
+      <!--Google search form-->
+      <form id="userForm">
+        <input type="text" id="userInput">
+        <button type="button" id="searchButton">Hledej!</button>
+      </form>
+      <!--Button to download a JSON file containing search results-->
+      <button type="button" id="downloadButton">Stáhnout výsledky vyhledávání jako JSON</button>
+
+      <!--Vanilla JS code for the "downloadButton"-->
+      <script>
+        document.getElementById("downloadButton").addEventListener("click",downloadJSON);
+        //fetching data from The Custom Search JSON API using the "searchURL" created in the searchTxt() function
+        function downloadJSON() {
+          fetch(searchURL)
+            .then(async(response) => {
+              let clone = response.clone();
+              let res = await clone.json();
+              console.log(res);
+              return response.blob()
+            })
+            .then(blob => { //to download response as a JSON file
+              var url = window.URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = url;
+              a.download = "Vysledky-vyhledavani.json";
+              a.click();
+            })
+            .catch(function(err) {
+              console.error(err)
+            })
+        }
+      </script>
+      
+      <div id="results-container">
+        <div id="results">
+          <!--Space for Google search results-->
+        </div>
+      </div>
+
+       <!--Vanilla JS code for the "searchButton"-->
+      <script>
+        var searchURL;
+
+        document.getElementById("searchButton").addEventListener("click",searchTxt);
+       
+        //searchTxt() is a function for searching keywords on Google via The Programmable Search Engine (using The Custom Search JSON API)
+        function searchTxt() {
+          document.getElementById("results").innerHTML = ""; //to delete the content of the "results" element before starting a new search
+
+          //creating URL for The Custom Search JSON API with API key and user's text from the Google search form
+          var baseURL             = "https://www.googleapis.com/customsearch/v1?cx=85552b3624e59ce8d"; //cx is ID of The Programmable Search Engine Pokusomyl.cz
+          var apiKey              = "&key=AIzaSyDRv9U3BO6c2kKz3UTIOologHxts1BGwps"; //alternate API key AIzaSyAisMuzJTj9uWrQ2y54WRO7Rq6Y8-wNbtg
+          var question            = "&q=";
+          var userText            = fixedEncodeURIComponent(document.getElementById("userInput").value);
+          var userTextSpaceEncode = userText.replace(/%20/g, "+");
+              searchURL           = baseURL+apiKey+question+userTextSpaceEncode;
+
+          function fixedEncodeURIComponent(str) {
+            return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+            return '%' + c.charCodeAt(0).toString(16);
+            });
+          }
+
+          //fetching data from The Custom Search JSON API using the "searchURL"
+          fetch(searchURL)
+            .then(async(response) => {
+              let res = await response.json();
+              return res
+            })
+            .then(function(data) { //to paste search items to the <div id="results">
+              console.log(data);
+              for (var i = 0; i < data.items.length; i++) {
+              var item = data.items[i];
+              document.getElementById("results").innerHTML += "<p>" + item.formattedUrl + "<br>" + "<a href=" + item.link + ">" + item.htmlTitle + "</a></p>";
+              }
+            })
+            .catch(function(error){
+              console.log(error);
+            })
+          }
+      </script>
+    </main>
+
+    <!--Website footer with information about the author, the last updated date and references-->
+    <footer>
+      <p>© Veronika Kreidlová 3. 12. 2020</p>
+      <p>Obrázek psa od <a href="https://pixabay.com/cs/users/redhead_pueppi-6697213/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2936444">Jennifer R.</a> Zdroj <a href="https://pixabay.com/cs/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2936444">Pixabay</a></p>
+      <p>
+      Komiksová bublina od <a href="https://pixabay.com/cs/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=157909">OpenClipart-Vectors</a> Zdroj <a href="https://pixabay.com/cs/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=157909">Pixabay</a>
+      </p>
+    </footer>
+
+
+  </body>
+</html>
